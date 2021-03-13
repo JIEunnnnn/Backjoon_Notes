@@ -1,8 +1,8 @@
 #백준1260. DFS와 BFS
 #양방향 그래프를 정점 작은순으로 방문하는 알고리즘 구현 
 #
-#DFS와 BFS의 개념 다시한번더 상기..!
-#
+#DFS와 BFS의 개념 다시한번더 상기해야할 필요성을 느낌
+#백준은 입력값받는게 어렵네^^ㅠ 
 
 import sys
 from collections import deque
