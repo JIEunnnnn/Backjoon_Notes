@@ -1,11 +1,14 @@
 #백준2667 단지번호붙이기
+#몇단지가 몇가구씩 있는가?
+#
+#방향키를 변수로설정하고 DFS이용...!...
+#
 
 import sys
 from collections import deque
 input = sys.stdin.readline
 #n = input().split(' ')
 n = int(input())
-print(n)
 
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
@@ -42,8 +45,5 @@ for i in range(n) :
 print(len(apt))
 apt.sort()
 for i in range(len(apt)):
-  print(i)
-
-
-
+  print(apt[i])
 
