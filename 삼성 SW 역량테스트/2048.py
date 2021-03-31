@@ -127,8 +127,6 @@ def dfs(dfs_board, n) :
   dfs(move_down(copy.deepcopy(dfs_board)), n+1)
 
 
-
-
 if __name__ == '__main__':
   N = int(input())
   maxv = 0
@@ -136,7 +134,7 @@ if __name__ == '__main__':
   dfs(map_board, 0)
   print(maxv)
 
-
+===============================================================================
 #1차시도 => 실패
 from sys import stdin
 from collections import deque
