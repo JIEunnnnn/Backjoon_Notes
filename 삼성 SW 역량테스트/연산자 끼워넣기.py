@@ -32,10 +32,7 @@ for i in opperand_list :
     elif i[j] == 'x' :
       tmp_answer *= n[j]
     elif i[j] == '/' :
-      if tmp_answer > 0 :
-        tmp_answer = int(tmp_answer/n[j])
-      else :
-        tmp_answer = 0
+      tmp_answer = int(tmp_answer/n[j])
   
   answer_list.append(tmp_answer)
 
