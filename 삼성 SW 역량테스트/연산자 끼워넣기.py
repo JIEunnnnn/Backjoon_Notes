@@ -1,5 +1,49 @@
+#백준14888 연산자 끼워넣기
+#주어진 숫자와 연산자에 따라 최댓값 최솟값 찾기
+#
+#1차시도때 규칙이 있는 줄알고 계산하다가 아니라는것을 깨달음
+#2차시도때, deque로 연산자순서변경해가며 계산시도 => 숫자가아닌 연산자는 숫서뒤죽박죽이가능하다 ==> 순열..!! 
+
+from sys import stdin
+from itertools import permutations
+#from collections import deque
 
 
+size =  int(stdin.readline()) #숫자갯수
+n = list(map(int, stdin.readline().split())) #숫자
+num = list(map(int, stdin.readline().split())) #연산자 갯수
+
+op_list = []
+answer_list = []
+op_list.extend(['+']*num[0])
+op_list.extend(['-']*num[1])
+op_list.extend(['x']*num[2])
+op_list.extend(['/']*num[3])
+opperand_list = set(permutations(op_list))
+
+tmp = n.pop(0)
+for i in opperand_list :
+  tmp_answer = tmp
+  for j in range(size-1) :
+    if i[j] == '+' :
+      tmp_answer += n[j]
+    elif i[j] == '-' :
+      tmp_answer -= n[j]
+    elif i[j] == 'x' :
+      tmp_answer *= n[j]
+    elif i[j] == '/' :
+      if tmp_answer > 0 :
+        tmp_answer = int(tmp_answer/n[j])
+      else :
+        tmp_answer = 0
+  
+  answer_list.append(tmp_answer)
+
+#print(answer_list)
+print(max(answer_list))
+print(min(answer_list))
+
+======================================================================
 #1차시도
 from sys import stdin
 import copy
