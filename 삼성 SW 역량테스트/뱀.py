@@ -1,4 +1,4 @@
-https://chldkato.tistory.com/162
+https://jjangsungwon.tistory.com/27
 
 
 from sys import stdin
