@@ -11,7 +11,7 @@ dxs = [-1,0,0,1]
 dys = [0,-1,1,0]
 
 def bfs(x, y) :
-  q, visited = deque([x,y]), set([(x, y)])
+  q, visited = deque([(x,y)]), set([(x, y)])
   time = 0
   shark = 2 
   eat = 0 
@@ -46,7 +46,7 @@ def bfs(x, y) :
       for dx, dy in zip(dxs, dys) :
         #zip = 동일한크기의 리스트의 요소를 묶어주는 함수 
         nx, ny = x + dx, y + dy 
-        if nx >=0 and nx < 0 and ny >=0 and ny < 0 and (nx, ny) not in visited : 
+        if nx >=0 and nx < n and ny >=0 and ny < n and (nx, ny) not in visited : 
           #오버플로우 방지 및 방문하지 않았다면 
           if board[nx][ny] <= shark :
             q.append((nx, ny))
@@ -58,22 +58,18 @@ def bfs(x, y) :
     
     time +=1 
 
-  return answer 
-
-
-
+  return answer
 
 
 n = int(input())
 board = [list(map(int , input().split())) for _ in range(n)]
 
-
 s_x, s_y = None, None
-for i in range(n):
+for i in range(n) :
     for j in range(n):
         if board[i][j] == 9:
-            s_x, s_y = i, j #처음 아기상어 위치(시작점)
+            s_x, s_y = i, j #처음 아기상어 위치 
             board[i][j] = 0
-
+            
 # 2. 시작점에서 BFS 진행
 print(bfs(s_x, s_y))
