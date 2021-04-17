@@ -3,6 +3,10 @@
 #
 #DFS 구현(재귀)
 #https://inspirit941.tistory.com/165
+#
+#for => DFS => return 마지막카메라까지 접근할경우 
+#다시for문시행해서 방향수정
+
 
 from sys import stdin
 from collections import deque
@@ -63,7 +67,8 @@ def change(maps, list, x, y) :
 
 def DFS(cctvs, maps, idx) :
     global answer
-
+    
+    #마지막감시카메라 시행할때까지 재귀반복
     if idx == len(cctvs) :
         value = 0
         for i in range(len(maps)) :
@@ -78,7 +83,6 @@ def DFS(cctvs, maps, idx) :
     if num == 1 :
         for i in range(4) :
             next_maps = change(maps, [i], x,y )
-            #print(next_maps)
             DFS(cctvs, next_maps, idx+1)
 
     elif num == 2 :
@@ -89,13 +93,11 @@ def DFS(cctvs, maps, idx) :
 
     elif num == 3 :
         for i in [(0,2), (3,0), (1,3), (2,1)] :
-
             next_maps = change(maps, i, x,y )
             DFS(cctvs, next_maps, idx+1)
 
     elif num == 4 :
         for i in [(0,2,1), (3,0,2), (1,3,0), (2,1,3)] :
-
             next_maps = change(maps, i, x,y )
             DFS(cctvs, next_maps, idx+1)
 
@@ -122,7 +124,6 @@ for i in range(n) :
 DFS(cctv, maps, 0 )
 #print(maps)
 print(answer)
-
 ==================================================================
 #1차시도 실패>_<77
 from sys import stdin
