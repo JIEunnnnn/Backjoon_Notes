@@ -1,5 +1,129 @@
+#백준15683 감시
+#감시카메라의 사각지대 최솟값 구하기
+#
+#DFS 구현(재귀)
+#https://inspirit941.tistory.com/165
+
+from sys import stdin
+from collections import deque
+from copy import deepcopy
+import math
+
+#cctv = {1:(0,1), 2:(0,-1), 3 : (-1,0), 5: (1,0) }
+dxs = [0,0,-1,1]
+dys = [1,-1,0,0]
+
+#세로N 가로M
+n,m = map(int, stdin.readline().split())
+answer = math.inf
+
+def change(maps, list, x, y) :
+    maps = deepcopy(maps)
+
+    for i in list :
+        if i == 0 : #오른쪽
+            for i in range(y , m) :
+                if maps[x][i] == 6 :
+                    break
+                elif maps[x][i] != 0 :
+                    continue
+                else :
+                    maps[x][i] = '#'
+
+        elif i == 1 : #왼쪽
+            for i in range(y,-1,-1) :
+                if maps[x][i] == 6:
+                    break
+                elif maps[x][i] != 0:
+                    continue
+                else:
+                    maps[x][i] = '#'
+
+        elif i == 2 : #위쪽
+            for i in range(x,-1,-1) :
+                if maps[i][y] == 6 :
+                    break
+                elif maps[i][y] != 0 :
+                    continue
+                else :
+                    maps[i][y] = '#'
+
+        elif i == 3 : #아래쪽
+
+            for i in range(x,n) :
+                if maps[i][y] == 6 :
+                    break
+                elif maps[i][y] != 0 :
+                    continue
+                else :
+                    maps[i][y] = '#'
+
+    return maps
 
 
+def DFS(cctvs, maps, idx) :
+    global answer
+
+    if idx == len(cctvs) :
+        value = 0
+        for i in range(len(maps)) :
+            value += maps[i].count(0)
+
+        answer = min(answer, value)
+        return
+
+    cctv = cctvs[idx]
+    num, x,y = cctv[0], cctv[1], cctv[2]
+
+    if num == 1 :
+        for i in range(4) :
+            next_maps = change(maps, [i], x,y )
+            #print(next_maps)
+            DFS(cctvs, next_maps, idx+1)
+
+    elif num == 2 :
+        for i in [(0,1), (2,3)] :
+            next_maps = change(maps, i, x,y )
+            DFS(cctvs, next_maps, idx+1)
+
+
+    elif num == 3 :
+        for i in [(0,2), (3,0), (1,3), (2,1)] :
+
+            next_maps = change(maps, i, x,y )
+            DFS(cctvs, next_maps, idx+1)
+
+    elif num == 4 :
+        for i in [(0,2,1), (3,0,2), (1,3,0), (2,1,3)] :
+
+            next_maps = change(maps, i, x,y )
+            DFS(cctvs, next_maps, idx+1)
+
+    elif num == 5 :
+        i = (0,1,2,3)
+        next_maps = change(maps, i, x, y)
+        DFS(cctvs, next_maps, idx + 1)
+
+
+cctv = []
+maps = []
+for i in range(n) :
+    tmp = list(map(int, stdin.readline().split()))
+    for key, value in enumerate(tmp) :
+        if value in [1,2,3,4,5] :
+            cctv.append((value, i, key))
+
+    maps.append(deepcopy(tmp))
+
+
+
+#print(cctv)
+#print(maps)
+DFS(cctv, maps, 0 )
+#print(maps)
+print(answer)
+
+==================================================================
 #1차시도 실패>_<77
 from sys import stdin
 from collections import deque
