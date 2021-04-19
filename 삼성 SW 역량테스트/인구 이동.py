@@ -1,6 +1,10 @@
+#백준16234 인구 이돋
+#인구이동은 최대 몇번발생하는가?
+#
+#처음에 제시문 중 인구이동가능한 덩어리? 로 구분X
+#시간초과발생했지만... 후에 python으로 수정필요성 있음
 
-
-#2차시도 ==> 시간초과,,,,
+#2차시도 ==> 시간초과,,,,(pypy3로 해결)
 from sys import stdin
 from copy import deepcopy
 from itertools import combinations
@@ -20,7 +24,7 @@ for i in range(n):
 def visited(maps, i, j) :
     x, y, sum = i, j, 0
     start = deque([(x,y)])
-    visited = [] #return 값(maps변경위한..!)
+    visited = deque() #return 값(maps변경위한..!)
 
     while start :
         vx, vy = start.popleft()
@@ -42,7 +46,7 @@ def visited(maps, i, j) :
 
 def BFS(maps, cnt):
     tmaps = deepcopy(maps)
-    total_visited = []
+    total_visited = deque()
     total = set()
     sum = 0
     flag = 0
