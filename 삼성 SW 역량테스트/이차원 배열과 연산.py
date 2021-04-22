@@ -1,5 +1,81 @@
+#백준17140 이차원 배열과 연산
+#행과열의 길이에 따라 계산다르게 수행하는 알고리즘
+#
+#1차시도때, 의도는 좋았으나,row, col변환해야하는 과정에서 오버플로우 발생! 
+#파이썬에서 zip(*A) 를 활용하여, 행과열을 바꾸는 "전치행렬" 구현이 가능하다 => 튜플로 반환되니까 list(maps(list, zip(*A))) 로! 
+#또한 Counter메소드를 활용하여, 딕셔너리형태의 갯수를 구할수있다는 점...! 
+
+# https://inspirit941.tistory.com/166 (참고블로그)
+# http://pyengine.blogspot.com/2016/11/python-zip-transpose.html (전치행렬)
 
 
+from sys import stdin
+from collections import Counter
+from copy import deepcopy
+
+r,c,k = map(int, stdin.readline().split())
+maps = []
+
+for i in range(3) :
+    maps.append(list(map(int, stdin.readline().split())))
+
+#행계산
+def rowDEF(maps) :
+    maps = deepcopy(maps)
+    max_col = 0    #최대길이에 맞춰 0을 추가해야함
+    next_maps = [] #리턴할 maps
+
+    for rows in maps :
+        next_row = []
+        tmp = Counter(rows)
+        tmp2 =  list(tmp.items())
+        tmp2.sort(key = lambda x : (x[1], x[0]))
+        for num, cnt in tmp2 :
+            if num != 0 :
+                next_row.append(num)
+                next_row.append(cnt)
+        max_col =  max(max_col, len(next_row))
+        next_maps.append(next_row)
+
+    for rows in next_maps :
+        if len(rows) < max_col :
+            for i in range(max_col - len(rows)) :
+                rows.append(0)
+
+    return next_maps
+
+
+
+
+for i in range(101) :
+    if r <= len(maps) and c <= len(maps[0]) and maps[r-1][c-1] == k :
+        #오버플로우 방지
+        print(i)
+        break
+    if i == 100 :
+        print(-1)
+
+    if len(maps) >= len(maps[0]) :
+        maps = rowDEF(maps)
+    else :
+        #전치행렬, 행과열을 바꾸는 연산방법!
+        # 1) 열을 행으로 변환하여 계산시행
+
+        #print(maps)
+            # [[2, 1, 1, 2, 0, 0], [1, 1, 2, 1, 3, 1], [3, 3, 0, 0, 0, 0]]
+        maps2 = list(zip(*maps))
+            #[(2, 1, 3), (1, 1, 3), (1, 2, 0), (2, 1, 0), (0, 3, 0), (0, 1, 0)]
+        maps3 = list(map(list, maps2))
+            #[[2, 1, 3], [1, 1, 3], [1, 2, 0], [2, 1, 0], [0, 3, 0], [0, 1, 0]]
+
+        maps = rowDEF(maps3)
+
+        # 2) 행으로 변환했던 열을 다시 열로 변환해야함!
+        maps = list(map(list, zip(*maps)))
+
+
+
+========================================================================
 #1차시도 => 오버플로우 발생.. 초기화시켜서 다시 풀어보자!
 from sys import stdin
 from copy import deepcopy
