@@ -1,7 +1,8 @@
 
 
 
-#1차시도
+
+#1차시도.. => 테케도 통과못함ㅠ 뭐가문제지.. 
 from sys import stdin
 from copy import deepcopy
 from itertools import combinations
@@ -24,6 +25,7 @@ def line_append(maps, will_lines) :
         maps[x2][y2] = 1
 
     cnt = 0
+
     for y in range(n) :
         tmp = y
         for x in range(h) :
@@ -58,7 +60,6 @@ for _ in range(m) :
     maps[tmp[0]-1][tmp[1]-1] = 1
     maps[tmp[0]-1][tmp[1]] = 1
     # (1 ≤ a ≤ H, 1 ≤ b ≤ N-1)
-
 for x in range(h) :
     for y in range(n) :
         if maps[x][y] == 0 :
@@ -66,8 +67,6 @@ for x in range(h) :
             if 0<=tx< h and 0<=ty < n :
                 if maps[tx][ty] == 0 :
                     will_lines.append((x, y, tx, ty ))
-                else :
-                    break
 
 print(will_lines)
 print(maps)
@@ -75,7 +74,6 @@ for i in range(1, 4) :
     #tmp = list(combinations(will_lines, i))
     tmp = list(combinations(will_lines, 3))
     for j in tmp :
-        print(j)
         ans = line_append(maps, j)
         if ans == False :
             continue
