@@ -32,9 +32,9 @@ def dfs(cnt, idx, r) :
         if move() == 1 :
             ans = cnt
         return
-
-    for i in range(idx, h) : #가로
-        for j in range(n-1) : #세로
+    
+    for i in range(idx, h) : #가로 - 추가해야할 가로선(idx 이후만 검사하기)
+        for j in range(n-1) : #세로선(마지막 세로선 제외-5개의 세로선이라면 4번째 세로선 영향받으니까... )
             if maps[j][i] : #maps[j][i] = 1 일경우
                 continue
             if j-1 >= 0 and maps[j-1][i]:
