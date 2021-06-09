@@ -28,3 +28,4 @@ for i in list_num :
 
 
 print(' '.join(answer))
+
